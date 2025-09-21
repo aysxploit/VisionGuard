@@ -31,3 +31,108 @@ It enables real-time and image-based license plate recognition with logging capa
 - **Verify Installation:**  
   ```bash
   tesseract --version
+````
+
+If version info appears, setup is correct.
+
+* **Google Gemini API Key**
+
+  * Create a project in Google Cloud Console.
+  * Enable the **Generative Language API**.
+  * Generate and copy your API key.
+
+---
+
+## ⚙️ Installation and Setup
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone <your_repository_url>
+   cd VisionGuard-ALPR
+   ```
+
+   Or create the folder structure manually and copy the files.
+
+2. **Create Project Directories**
+
+   ```
+   VisionGuard-ALPR/
+   ├── data/
+   │   ├── db/
+   │   └── logs/
+   ├── src/
+   ├── tests/
+   └── docs/
+   ```
+
+3. **Create Virtual Environment**
+
+   ```bash
+   python3 -m venv venv
+   ```
+
+4. **Activate Virtual Environment**
+
+   * **Windows**
+
+     ```bash
+     venv\Scripts\activate
+     ```
+   * **macOS/Linux**
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+5. **Install Dependencies**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+6. **Configure the Application**
+
+   * Open `config.ini`.
+   * Set `APIKey` = your Gemini API key.
+     **Never commit your key to GitHub.**
+   * Adjust `CameraIndex` if using multiple cameras (`0` = default webcam).
+
+---
+
+## 🚀 Running the Application
+
+```bash
+python src/main.py
+```
+
+* The webcam feed will open in a GUI window.
+* Recognized license plates and timestamps will appear in the log.
+* **Snapshot Button** → saves current frame.
+* **Load Image Button** → process a still image.
+* **Log Panel** → shows detected plates.
+
+---
+
+## 🛠️ Troubleshooting
+
+* **`ImportError` / `ModuleNotFoundError`**
+  Ensure virtual environment is active and dependencies are installed.
+* **`ValueError: Unable to open video source`**
+  Adjust `CameraIndex` in `config.ini` (try 0, 1, 2…).
+* **Tesseract Issues**
+  Check installation and PATH. Run `tesseract --version`.
+* **API Errors**
+  Confirm API key and API enablement in Google Cloud Console.
+  Check logs in `data/logs/alpr_log.txt`.
+* **Detection Failures**
+  Inspect the Gemini API response structure and adjust
+  `detect_license_plate_api` function if needed.
+
+---
+
+## 🧪 Running Tests
+
+```bash
+python -m unittest discover tests
+```
