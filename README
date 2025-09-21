@@ -1,138 +1,89 @@
-# VisionGuard - Automated License Plate Recognition (ALPR) System
+VisionGuard – Automated License Plate Recognition (ALPR)
 
-VisionGuard is a desktop ALPR application built with **Python**, **OpenCV**, **Tesseract OCR**, and the **Google Gemini API**.  
-It enables real-time and image-based license plate recognition with logging capabilities and a basic GUI.
+VisionGuard is a Python-based ALPR system designed for real-time or image-based license plate detection, OCR recognition, and result logging. Built with OpenCV, Tesseract OCR, and optional Google Gemini AI post-processing, it provides both CLI and GUI modes with an integrated SQLite database for storing recognized plates.
 
----
+⸻
 
-## ✨ Features
-- Real-time license plate detection from video feeds.
-- Still image license plate recognition.
-- Logging of recognized plates to a local SQLite database.
-- Basic GUI for video display, snapshots, and log viewing.
+✦ Features
+	•	Real-time video feed license plate detection.
+	•	Static image recognition with OCR.
+	•	Optional cleanup of OCR output using Gemini API.
+	•	Automatic logging of results to SQLite.
+	•	Minimal Tkinter GUI for live video and history browsing.
+	•	Configurable via .env and config.ini.
 
----
+⸻
 
-## 📦 Prerequisites
+✦ Requirements
+	•	Python 3.13 (or newer).
+	•	Tesseract OCR installed and added to PATH.
+	•	Windows: UB Mannheim Tesseract
+	•	macOS: brew install tesseract
+	•	Linux (Debian/Ubuntu): sudo apt-get install tesseract-ocr
 
-- **Python 3.7+** → [Download here](https://www.python.org/)
-- **Tesseract OCR** (must be installed separately)
-  - **Windows:** [UB Mannheim Installer](https://github.com/UB-Mannheim/tesseract/wiki)  
-    *Important: add Tesseract to your system PATH during installation.*
-  - **macOS:**  
-    ```bash
-    brew install tesseract
-    ```
-  - **Ubuntu/Debian Linux:**  
-    ```bash
-    sudo apt-get install tesseract-ocr
-    ```
-  - **Other Linux Distros:** Use your package manager (e.g., `yum`, `pacman`).
-- **Verify Installation:**  
-  ```bash
-  tesseract --version
-````
+Install Python dependencies:
 
-If version info appears, setup is correct.
+pip install -r requirements.txt
 
-* **Google Gemini API Key**
 
-  * Create a project in Google Cloud Console.
-  * Enable the **Generative Language API**.
-  * Generate and copy your API key.
+⸻
 
----
+✦ Quick Start
+	1.	Clone the repository:
 
-## ⚙️ Installation and Setup
+git clone https://github.com/TwilightAshen3196/visionguard-fyp.git
+cd visionguard-fyp
 
-1. **Clone the Repository**
 
-   ```bash
-   git clone <your_repository_url>
-   cd VisionGuard-ALPR
-   ```
+	2.	Copy .env.example → .env and add your Gemini API key (optional).
+	3.	Run in camera mode:
 
-   Or create the folder structure manually and copy the files.
+python -m src.main --camera
 
-2. **Create Project Directories**
 
-   ```
-   VisionGuard-ALPR/
-   ├── data/
-   │   ├── db/
-   │   └── logs/
-   ├── src/
-   ├── tests/
-   └── docs/
-   ```
+	4.	Run on an image:
 
-3. **Create Virtual Environment**
+python -m src.main --image path/to/image.jpg
 
-   ```bash
-   python3 -m venv venv
-   ```
 
-4. **Activate Virtual Environment**
 
-   * **Windows**
+⸻
 
-     ```bash
-     venv\Scripts\activate
-     ```
-   * **macOS/Linux**
+✦ Configuration
 
-     ```bash
-     source venv/bin/activate
-     ```
+Settings are stored in config.ini:
+	•	[app] – camera index, database path, snapshot directory.
+	•	[processing] – thresholds, blur, contour area, aspect ratio for plate detection.
+	•	[gemini] – model selection and API enable toggle.
 
-5. **Install Dependencies**
+⸻
 
-   ```bash
-   pip install -r requirements.txt
-   ```
+✦ Project Structure
 
-6. **Configure the Application**
+visionguard-fyp/
+├─ data/              # auto-generated storage
+│  ├─ db/             # SQLite database
+│  └─ logs/           # log & snapshots
+├─ src/               # source code
+│  ├─ alpr.py         # detection & OCR
+│  ├─ db.py           # database operations
+│  ├─ gemini_client.py# optional Gemini cleanup
+│  ├─ logging_setup.py# logging config
+│  ├─ main.py         # CLI entrypoint
+│  └─ gui.py          # Tkinter GUI
+├─ tests/             # basic pytest tests
+├─ requirements.txt
+├─ config.ini
+├─ .env.example
+└─ README.md
 
-   * Open `config.ini`.
-   * Set `APIKey` = your Gemini API key.
-     **Never commit your key to GitHub.**
-   * Adjust `CameraIndex` if using multiple cameras (`0` = default webcam).
 
----
+⸻
 
-## 🚀 Running the Application
+✦ License
 
-```bash
-python src/main.py
-```
+MIT License – free to use, modify, and distribute.
 
-* The webcam feed will open in a GUI window.
-* Recognized license plates and timestamps will appear in the log.
-* **Snapshot Button** → saves current frame.
-* **Load Image Button** → process a still image.
-* **Log Panel** → shows detected plates.
+⸻
 
----
-
-## 🛠️ Troubleshooting
-
-* **`ImportError` / `ModuleNotFoundError`**
-  Ensure virtual environment is active and dependencies are installed.
-* **`ValueError: Unable to open video source`**
-  Adjust `CameraIndex` in `config.ini` (try 0, 1, 2…).
-* **Tesseract Issues**
-  Check installation and PATH. Run `tesseract --version`.
-* **API Errors**
-  Confirm API key and API enablement in Google Cloud Console.
-  Check logs in `data/logs/alpr_log.txt`.
-* **Detection Failures**
-  Inspect the Gemini API response structure and adjust
-  `detect_license_plate_api` function if needed.
-
----
-
-## 🧪 Running Tests
-
-```bash
-python -m unittest discover tests
-```
+Do you want me to make this README more formal academic style (since it’s an FYP), or keep it developer-focused concise?
