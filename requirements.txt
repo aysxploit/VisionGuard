@@ -1,0 +1,6 @@
+opencv-python
+pillow
+torch
+torchvision
+ultralytics
+easyocr

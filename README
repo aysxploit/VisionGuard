@@ -1,0 +1,33 @@
+# VisionGuard - Automated License Plate Recognition (ALPR) System
+
+VisionGuard is a desktop ALPR application built with **Python**, **OpenCV**, **Tesseract OCR**, and the **Google Gemini API**.  
+It enables real-time and image-based license plate recognition with logging capabilities and a basic GUI.
+
+---
+
+## ✨ Features
+- Real-time license plate detection from video feeds.
+- Still image license plate recognition.
+- Logging of recognized plates to a local SQLite database.
+- Basic GUI for video display, snapshots, and log viewing.
+
+---
+
+## 📦 Prerequisites
+
+- **Python 3.7+** → [Download here](https://www.python.org/)
+- **Tesseract OCR** (must be installed separately)
+  - **Windows:** [UB Mannheim Installer](https://github.com/UB-Mannheim/tesseract/wiki)  
+    *Important: add Tesseract to your system PATH during installation.*
+  - **macOS:**  
+    ```bash
+    brew install tesseract
+    ```
+  - **Ubuntu/Debian Linux:**  
+    ```bash
+    sudo apt-get install tesseract-ocr
+    ```
+  - **Other Linux Distros:** Use your package manager (e.g., `yum`, `pacman`).
+- **Verify Installation:**  
+  ```bash
+  tesseract --version
