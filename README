@@ -49,4 +49,7 @@ visionguard-fyp/
 ├─ .env.example
 ├─ requirements.txt
 └─ README.md
+<<<<<<< HEAD
 ```
+=======
+>>>>>>> 576133bd2cc773cb527b8401b618dd506fce95aa
