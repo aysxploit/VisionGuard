@@ -1,81 +1,83 @@
 # VisionGuard – Automated License Plate Recognition (ALPR)
 
-VisionGuard is a Python-based ALPR system designed for real-time or image-based license plate detection, OCR recognition, and result logging. Built with *OpenCV, **Tesseract OCR, and optional **Google Gemini AI* post-processing, it provides both CLI and GUI modes with an integrated SQLite database for storing recognized plates.
+VisionGuard is a desktop ALPR system built with **Python 3.13**, **OpenCV**, and **Tesseract OCR**, with optional cleanup via **Google Gemini AI**.  
+It supports real-time camera capture, static image recognition, SQLite logging, and a minimal Tkinter GUI.
 
 ---
 
-## ✦ Features
-- Real-time video feed license plate detection.  
-- Static image recognition with OCR.  
-- Optional cleanup of OCR output using Gemini API.  
-- Automatic logging of results to SQLite.  
-- Minimal Tkinter GUI for live video and history browsing.  
-- Configurable via .env and config.ini.  
+## Features
+- Real-time plate detection from camera feed  
+- Image-based OCR recognition  
+- SQLite database logging of results  
+- Minimal Tkinter GUI for live video and history browsing  
+- Optional Gemini API cleanup for noisy OCR output  
+- Configurable via `.env` and `config.ini`  
 
 ---
 
-## ✦ Requirements
-- *Python 3.13* (or newer).  
-- *Tesseract OCR* installed and added to PATH.  
+## Requirements
+- **Python 3.13+**  
+- **Tesseract OCR** installed and added to PATH  
   - Windows: [UB Mannheim Tesseract](https://github.com/UB-Mannheim/tesseract/wiki)  
-  - macOS: brew install tesseract  
-  - Linux (Debian/Ubuntu): sudo apt-get install tesseract-ocr  
+  - macOS: `brew install tesseract`  
+  - Linux (Debian/Ubuntu): `sudo apt-get install tesseract-ocr`  
 
 Install Python dependencies:
-bash
+```bash
 pip install -r requirements.txt
-
-
----
-
-## ✦ Quick Start
-
-1. Clone the repository:
-   bash
-   git clone https://github.com/TwilightAshen3196/visionguard-fyp.git
-   cd visionguard-fyp
-   
-
-2. Copy .env.example → .env and add your *Gemini API key* (optional).  
-
-3. Run in camera mode:
-   bash
-   python -m src.main --camera
-   
-
-4. Run on an image:
-   bash
-   python -m src.main --image path/to/image.jpg
-   
+```
 
 ---
 
-## ✦ Configuration
-Settings are stored in config.ini:
-- *[app]* – camera index, database path, snapshot directory.  
-- *[processing]* – thresholds, blur, contour area, aspect ratio for plate detection.  
-- *[gemini]* – model selection and API enable toggle.  
+## Quick Start
+
+Clone the repository:
+```bash
+git clone https://github.com/TwilightAshen3196/visionguard-fyp.git
+cd visionguard-fyp
+```
+
+Set up environment:
+```bash
+cp .env.example .env   # Add Gemini API key if using AI cleanup
+```
+
+Run in camera mode:
+```bash
+python -m src.main --camera
+```
+
+Run on an image:
+```bash
+python -m src.main --image path/to/file.jpg
+```
 
 ---
 
-## ✦ Project Structure
+## Configuration
 
+Settings are stored in `config.ini`:
+
+- **[app]** → camera index, database path, snapshot folder  
+- **[processing]** → thresholds, blur size, contour area, aspect ratio  
+- **[gemini]** → API toggle and model selection  
+
+---
+
+## Project Structure
+```
 visionguard-fyp/
-├─ data/              # auto-generated storage
-│  ├─ db/             # SQLite database
-│  └─ logs/           # log & snapshots
-├─ src/               # source code
-│  ├─ alpr.py         # detection & OCR
-│  ├─ db.py           # database operations
-│  ├─ gemini_client.py# optional Gemini cleanup
-│  ├─ logging_setup.py# logging config
-│  ├─ main.py         # CLI entrypoint
-│  └─ gui.py          # Tkinter GUI
-├─ tests/             # basic pytest tests
-├─ requirements.txt
+├─ data/db/         # SQLite database
+├─ data/logs/       # logs + snapshots
+├─ src/             # source code
+├─ tests/           # pytest tests
 ├─ config.ini
 ├─ .env.example
+├─ requirements.txt
 └─ README.md
-
+```
 
 ---
+
+## License
+MIT License – free to use, modify, and distribute.
